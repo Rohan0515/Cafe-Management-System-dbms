@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Thank You for Your Payment</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f7f7f7;
+		}
+		
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 40px;
+			background-color: #fff;
+			box-shadow: 0 0 10px rgba(0,0,0,0.2);
+			text-align: center;
+		}
+		
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #333;
+		}
+		
+		p {
+			font-size: 18px;
+			margin-bottom: 40px;
+			color: #666;
+		}
+		
+		#menu-bar {
+			display: none;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			box-shadow: 0 0 10px rgba(0,0,0,0.2);
+			z-index: 9999;
+		}
+		
+		#show-menu {
+			display: block;
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			position: fixed;
+			top: 0;
+			right: 0;
+			box-shadow: 0 0 10px rgba(0,0,0,0.2);
+			z-index: 9999;
+		}
+		
+		#show-menu:hover {
+			cursor: pointer;
+		}
+		
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		li {
+			margin-right: 20px;
+		}
+		
+		a {
+			color: #fff;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 18px;
+			transition: all 0.3s ease;
+		}
+		
+		a:hover {
+			color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Thank You for Your Payment!</h1>
+		<p>We appreciate your trust in us and hope to see you again soon.</p>
+		<a href="menu.html" id="show-menu">Show Menu</a>
+
+	</div>
+	<script>
+		const showMenuButton = document.getElementById('show-menu');
+		const menuBar = document.getElementById('menu-bar');
+		
+		showMenuButton.addEventListener('click', () => {
+			menuBar.style.display = 'block';
+		});
+	</script>
+</body>
+</html>

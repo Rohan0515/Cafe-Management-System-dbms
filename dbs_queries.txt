@@ -1,0 +1,179 @@
+ drop table Customer;
+ drop table Menu;
+ drop table Orders;
+ drop table Item;
+ drop table Staff;
+ drop table Tables;
+ drop table Customer_user;
+
+
+CREATE TABLE Customer (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(20));
+
+CREATE TABLE Menu (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  description varchar(255)
+);
+
+CREATE TABLE Orders (
+  id INT PRIMARY KEY,
+  customer_id INT,
+  staff_id INT,
+  table_id INT,
+  FOREIGN KEY (customer_id) REFERENCES Customer(id),
+  FOREIGN KEY (staff_id) REFERENCES Staff(id),
+  FOREIGN KEY (table_id) REFERENCES Tables(id)
+);
+
+CREATE TABLE Item (
+  id INT PRIMARY KEY,
+  menu_id INT,
+  name VARCHAR(255),
+  description varchar(255),
+  price DECIMAL(10, 2),
+  FOREIGN KEY (menu_id) REFERENCES Menu(id)
+);
+
+CREATE TABLE Staff (
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  position VARCHAR(255)
+);
+
+CREATE TABLE Tables(
+  id INT PRIMARY KEY,
+  name VARCHAR(255),
+  seats INT);
+
+CREATE TABLE Customer_user (
+  id INT PRIMARY KEY,
+  customer_id INT,
+  username VARCHAR(255),
+  password VARCHAR(255),
+  FOREIGN KEY (customer_id) REFERENCES Customer(id)
+);
+
+
+
+
+
+
+
+
+
+
+INSERT INTO Customer (id, name, email, phone) VALUES
+  (1, 'John Doe', 'johndoe@example.com', '555-1234'),
+  (2, 'Jane Smith', 'janesmith@example.com', '555-5678'),
+  (3, 'Bob Johnson', 'bob@example.com', '555-9012'),
+  (4, 'Alice Lee', 'alice@example.com', '555-3456'),
+  (5, 'Chris Davis', 'chris@example.com', '555-7890');
+
+INSERT INTO Menu (id,name,description) VALUES ((1,'Breakfast','Served from 8am to 11am')),((2,'Lunch','Served from 11am to 4pm')),((3,'Dinner', 'Served from 4pm to 10pm'));
+
+INSERT INTO Orders (id, customer_id, staff_id, table_id) VALUES
+  (1, 1, 1, 1),
+  (2, 2, 1, 2),
+  (3, 3, 2, 3);
+
+INSERT INTO Item (id, menu_id, name, description, price) VALUES
+  (1, 1, 'Eggs Benedict', 'Two poached eggs on an English muffin with Hollandaise sauce and Canadian bacon', 9.99),
+  (2, 1, 'Pancakes', 'Three pancakes with butter and maple syrup', 7.99),
+  (3, 2, 'Caesar Salad', 'Romaine lettuce, croutons, Parmesan cheese, and Caesar dressing', 8.99),
+  (4, 2, 'Club Sandwich', 'Turkey, bacon, lettuce, tomato, and mayo on toasted bread', 10.99),
+  (5, 3, 'Grilled Salmon', 'Fresh Atlantic salmon grilled to perfection, served with vegetables and rice', 18.99);
+
+INSERT INTO Staff (id, name, email, phone, position) VALUES
+  (1, 'Michael Brown', 'mbrown@example.com', '555-1212', 'Manager'),
+  (2, 'Sarah Johnson', 'sjohnson@example.com', '555-3434', 'Server');
+
+INSERT INTO Tables(id, name, seats) VALUES
+  (1, 'Table 1', 4),
+  (2, 'Table 2', 2),
+  (3, 'Table 3', 6);
+
+INSERT INTO Customer_user (id, customer_id, username, password) VALUES
+  (1, 1, 'johndoe', 'password123'),
+  (2, 2, 'janesmith', 'letmein'),
+  (3, 3, 'bob123', 'mypassword'),
+  (4, 4, 'alicelee', 'password'),
+  (5, 5, 'chrisdavis', '123456');
+
+
+
+
+
+CREATE OR REPLACE TRIGGER item_count_trigger
+AFTER INSERT ON Orders
+FOR EACH ROW
+DECLARE
+  item_count INTEGER;
+BEGIN
+  SELECT COUNT(*) INTO item_count FROM Orders WHERE item_id = :NEW.item_id;
+  UPDATE Item SET count = item_count WHERE id = :NEW.item_id;
+END;
+/
+
+
+
+
+Customer (id, name, email, phone, username, password)
+PK: id
+strong entity
+
+Menu (id, name, description)
+PK: id
+strong entity
+
+Order (id, customer_id, staff_id, table_id)
+PK: id
+FK: customer_id REFERENCES Customer(id)
+FK: staff_id REFERENCES Staff(id)
+FK: table_id REFERENCES Tables(id)
+strong entity
+
+Item (id, menu_id, name, description, price)
+PK: id
+FK: menu_id REFERENCES Menu(id)
+strong entity
+
+Staff (id, name, email, phone, position)
+PK: id
+strong entity
+
+Table (id, name, seats)
+PK: id
+strong entity
+
+Customer_user (id, customer_id, username, password)
+PK: id
+FK: customer_id REFERENCES Customer(id)
+weak entity
+
+Order_item (order_id, item_id, quantity)
+PK: (order_id, item_id)
+FK: order_id REFERENCES Order(id)
+FK: item_id REFERENCES Item(id)
+weak entity
+
+
+
+
+
+
+
+
+first page
+cafe-
+menu-
+
+location-
+payment-
+login-
+

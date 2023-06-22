@@ -1,0 +1,160 @@
+The customers table has a many-to-one relationship with the cities table, as each customer can have only one city of residence, but each city can have multiple customers.
+
+The cafes table has a many-to-one relationship with the cities table, as each cafe can be located in only one city, but each city can have multiple cafes.
+
+The managers table has a many-to-one relationship with the cafes table, as each manager can manage only one cafe, but each cafe can have only one manager.
+
+The staff table has a many-to-one relationship with the cafes table, as each staff member can work in only one cafe, but each cafe can have multiple staff members.
+
+The orders table has a many-to-one relationship with both the customers and cafes tables, as each order is placed by one customer at one cafe.
+
+The menu table has a many-to-one relationship with the cafes table, as each menu item can be offered at only one cafe, but each cafe can have multiple menu items.
+
+
+In the given database design, the strong entities are:
+
+cities
+cafes
+managers
+staff
+menu
+The weak entities are:
+
+customers
+orders
+
+
+
+
+reduced schema
+customers (id, first_name, last_name, email, phone_number, address, city_id)
+cities (id, name)
+cafes (id, name, address, city_id)
+managers (id, first_name, last_name, email, phone_number, cafe_id)
+staff (id, first_name, last_name, email, phone_number, cafe_id)
+orders (id, customer_id, cafe_id, order_date, total_amount)
+menu (id, name, description, price, cafe_id)
+
+
+
+
+
+
+Functional dependencies in the above database design can be described as follows:
+
+A)In the customers table:
+1)id → first_name, last_name, email, phone_number, address, city_id
+2)email → id, first_name, last_name, phone_number, address, city_id
+3)phone_number → id, first_name, last_name, email, address, city_id
+4)city_id → id, first_name, last_name, email, phone_number, address
+B)In the cities table:
+1)id → name
+C)In the cafes table:
+1)id → name, address, city_id
+2)city_id → id, name
+D)In the managers table:
+1)id → first_name, last_name, email, phone_number, cafe_id
+2)email → id, first_name, last_name, phone_number, cafe_id
+3)phone_number → id, first_name, last_name, email, cafe_id
+4)cafe_id → id, first_name, last_name, email, phone_number
+E)In the staff table:
+1)id → first_name, last_name, email, phone_number, cafe_id
+2)email → id, first_name, last_name, phone_number, cafe_id
+3)phone_number → id, first_name, last_name, email, cafe_id
+4)cafe_id → id, first_name, last_name, email, phone_number
+F)In the orders table:
+1)id → customer_id, cafe_id, order_date, total_amount
+2)customer_id → id
+3)cafe_id → id
+G)In the menu table:
+1)id → name, description, price, cafe_id
+2)cafe_id → id, name, description, price
+
+
+
+
+
+The entity relationship diagram would include the following entities and their relationships:
+
+
+Cities and Cafes: A city can have many cafes, and a cafe can belong to only one city. This is a one-to-many relationship.
+
+Cafes and Managers: A cafe can have one manager, and a manager can manage only one cafe. This is a one-to-one relationship.
+
+Cafes and Staff: A cafe can have many staff members, and a staff member can work at only one cafe. This is a one-to-many relationship.
+
+Cafes and Menu: A cafe can have many menu items, and a menu item can belong to only one cafe. This is a one-to-many relationship.
+
+Cities and Customers: A city can have many customers, and a customer can live in only one city. This is a one-to-many relationship.
+
+Cafes and Orders: A cafe can have many orders, and an order can be placed at only one cafe. A customer can place many orders, and an order can be placed by only one customer. This is a many-to-one relationship between customers and orders, and a one-to-many relationship between cafes and orders.
+
+I hope this helps!
+
+
+INSERT INTO customers (id, first_name, last_name, email, phone_number, address, city_id) VALUES
+  (101, 'Rajesh', 'Kumar', 'rajesh.kumar@example.com', '9876543210', '123 Main St, Apt 4', 1),
+  (102, 'Neha', 'Sharma', 'neha.sharma@example.com', '9876543211', '456 Elm St, Apt 5', 2);
+
+
+
+
+
+
+
+
+The database design provided has several limitations, including:
+
+Lack of normalization: The tables do not appear to be fully normalized, which can lead to data redundancy and inconsistencies. For example, the city name is repeated in both the cafes and customers tables.
+
+Lack of indexes: Indexes help to optimize queries and improve performance. Without proper indexing, the database may become slow when dealing with large amounts of data.
+
+No support for multiple cafe locations: The current design assumes that each cafe belongs to only one city. If a cafe has multiple locations in different cities, the current design would need to be modified to support this.
+
+No support for menu items with variations: The menu table assumes that each item has a fixed price, description, and name. If menu items have variations (e.g., different sizes or toppings), the design would need to be modified to support this.
+
+To improve this database design, some possible functionalities that can be added are:
+
+Normalization: By fully normalizing the database, data redundancy can be eliminated, and inconsistencies can be avoided.
+
+Indexing: Proper indexing can improve the performance of the database when dealing with large amounts of data.
+
+Support for multiple cafe locations: To support multiple cafe locations, a new table can be added to the database that tracks the location of each cafe.
+
+Support for menu items with variations: To support menu items with variations, a new table can be added to the database to store the variations of each menu item. Alternatively, the menu table can be modified to include additional columns for variations.
+
+
+
+
+In the given database schema, the relationship sets and participation types are as follows:
+
+Relationship Set: Cities - Customers
+
+Participation Type: Total participation (Every customer must belong to a city)
+Relationship Type: One-to-Many (One city can have multiple customers)
+Relationship Set: Cities - Cafes
+
+Participation Type: Total participation (Every cafe must be located in a city)
+Relationship Type: One-to-Many (One city can have multiple cafes)
+Relationship Set: Cafes - Managers
+
+Participation Type: Partial participation (A cafe may or may not have a manager)
+Relationship Type: One-to-One (One cafe has one manager)
+Relationship Set: Cafes - Staff
+
+Participation Type: Partial participation (A cafe may or may not have staff members)
+Relationship Type: One-to-Many (One cafe can have multiple staff members)
+Relationship Set: Customers - Orders
+
+Participation Type: Total participation (Every order must belong to a customer)
+Relationship Type: One-to-Many (One customer can place multiple orders)
+Relationship Set: Cafes - Orders
+
+Participation Type: Partial participation (A cafe may or may not have orders)
+Relationship Type: One-to-Many (One cafe can have multiple orders)
+Relationship Set: Cafes - Menu
+
+Participation Type: Partial participation (A cafe may or may not have menu items)
+Relationship Type: One-to-Many (One cafe can have multiple menu items)
+In summary, the participation types for the relationship sets in this database are a combination of total participation (represented by a solid line) and partial participation (represented by a dashed line), based on the requirements of the entities involved in the relationships.
+ss

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payment Portal</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+			padding: 20px;
+		}
+
+		h1 {
+			color: #555;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		form {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			padding: 20px;
+			max-width: 500px;
+			margin: 0 auto;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			color: #555;
+		}
+
+		input[type="text"],
+		input[type="email"],
+		input[type="tel"],
+		input[type="password"],
+		select {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			font-size: 16px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			box-shadow: none;
+			margin-bottom: 20px;
+		}
+
+		.button {
+			display: block;
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			font-size: 16px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+		}
+
+		.button:hover {
+			background-color: #3e8e41;
+		}
+
+		.error {
+			color: red;
+			margin-bottom: 10px;
+		}
+
+	</style>
+</head>
+<body>
+	<h1>Payment Portal</h1>
+	<form>
+		<label for="card">Amount</label>
+		<input type="numeric" id="Amount" name="card" placeholder="Enter amount" required>
+
+		<label for="expiry">card</label>
+		<input type="numeric" id="expiry" name="expiry" placeholder="Card number" required>
+		
+		<label for="expiry">expiry of card</label>
+		<input type="date" id="expiry" name="expiry" placeholder="MM/YY" required>
+
+		<label for="expiry">pin code</label>
+		<input type="password" id="expiry" name="expiry" placeholder="type your pin" required>
+
+		<label for="expiry">CVV</label>
+		<input type="password" id="cvv" name="expiry" placeholder="card's CVV" required>
+
+		<a href="thankyou.html" class="button" onclick="if(!document.getElementById('Amount').value || !document.getElementById('email').value || !document.getElementById('expiry').value || !document.getElementById('card').value || !document.getElementById('expiry').value || !document.getElementById('cvv').value) { alert('Please fill out all required fields'); return false; }">Submit Payment</a>
+	</form>
+</body>
+</html>
